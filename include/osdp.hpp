@@ -15,6 +15,7 @@ namespace OSDP {
 class Common {
 public:
 	Common() {}
+  virtual ~Common() = default;
 
 	void logger_init(int log_level, osdp_log_puts_fn_t puts_fn)
 	{
@@ -66,7 +67,7 @@ public:
 	{
 	}
 
-	~ControlPanel()
+	virtual ~ControlPanel()
 	{
 		osdp_cp_teardown(_ctx);
 	}
@@ -110,7 +111,7 @@ public:
 	{
 	}
 
-	~PeripheralDevice()
+	virtual ~PeripheralDevice()
 	{
 		osdp_pd_teardown(_ctx);
 	}
