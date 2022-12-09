@@ -22,7 +22,7 @@ else()
 	link_directories(${LIBOSDP_LIBRARY_DIR})
 endif()
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
 set(CP_SAMPLE cpp_cp_sample)
 set(PD_SAMPLE cpp_pd_sample)
 

@@ -5,6 +5,7 @@
  */
 
 #include <osdp.h>
+#include <utility>
 
 /**
  * @file: LibOSDP classical wrapper. See osdp.h for documentation.
@@ -16,6 +17,20 @@ class Common {
 public:
 	Common() {}
   virtual ~Common() = default;
+
+  Common(const Common& other) = delete;
+  Common& operator=(const Common& other) = delete;
+
+  Common(Common&& other) noexcept
+  {
+    _ctx = std::exchange(other._ctx,nullptr);
+  }
+
+  Common& operator=(Common&& other) noexcept
+  {
+    std::swap(_ctx,other._ctx);
+    return *this;
+  }
 
 	void logger_init(int log_level, osdp_log_puts_fn_t puts_fn)
 	{
