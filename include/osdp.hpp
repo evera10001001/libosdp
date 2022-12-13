@@ -7,6 +7,8 @@
 #include <osdp.h>
 #include <utility>
 
+#include <iostream>
+
 /**
  * @file: LibOSDP classical wrapper. See osdp.h for documentation.
  */
@@ -16,18 +18,23 @@ namespace OSDP {
 class Common {
 public:
 	Common() {}
-  virtual ~Common() = default;
+  virtual ~Common() 
+  {
+    std::cout << "[DEBUG]: " << __PRETTY_FUNCTION__ << "\n";
+  }
 
   Common(const Common& other) = delete;
   Common& operator=(const Common& other) = delete;
 
   Common(Common&& other) noexcept
   {
+    std::cout << "[DEBUG]: " << __PRETTY_FUNCTION__ << "\n";
     _ctx = std::exchange(other._ctx,nullptr);
   }
 
   Common& operator=(Common&& other) noexcept
   {
+    std::cout << "[DEBUG]: " << __PRETTY_FUNCTION__ << "\n";
     std::swap(_ctx,other._ctx);
     return *this;
   }
@@ -124,10 +131,13 @@ class PeripheralDevice : public Common {
 public:
 	PeripheralDevice()
 	{
+    std::cout << "[DEBUG]: " << __PRETTY_FUNCTION__ << "\n";
+
 	}
 
 	virtual ~PeripheralDevice()
 	{
+    std::cout << "[DEBUG]: " << __PRETTY_FUNCTION__ << "\n";
 		osdp_pd_teardown(_ctx);
 	}
 
@@ -136,11 +146,13 @@ public:
 
   PeripheralDevice(PeripheralDevice&& other) noexcept
   {
+    std::cout << "[DEBUG]: " << __PRETTY_FUNCTION__ << "\n";
     _ctx = std::exchange(other._ctx, nullptr);
   }
 
   PeripheralDevice& operator=(PeripheralDevice&& other) noexcept
   {
+    std::cout << "[DEBUG]: " << __PRETTY_FUNCTION__ << "\n";
     std::swap(_ctx,other._ctx);
     return *this;
   }
