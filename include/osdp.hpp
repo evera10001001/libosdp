@@ -131,6 +131,20 @@ public:
 		osdp_pd_teardown(_ctx);
 	}
 
+  PeripheralDevice(const PeripheralDevice& other) = delete;
+  PeripheralDevice& operator=(const PeripheralDevice& other) = delete;
+
+  PeripheralDevice(PeripheralDevice&& other) noexcept
+  {
+    _ctx = std::exchange(other._ctx, nullptr);
+  }
+
+  PeripheralDevice& operator=(PeripheralDevice&& other) noexcept
+  {
+    std::swap(_ctx,other._ctx);
+    return *this;
+  }
+
 	bool setup(osdp_pd_info_t *info)
 	{
 		_ctx = osdp_pd_setup(info);
